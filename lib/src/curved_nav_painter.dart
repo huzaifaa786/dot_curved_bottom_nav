@@ -34,9 +34,9 @@ class CurvedNavPainter extends CustomPainter {
     final height = size.height;
     final width = size.width;
 
-    const s = 0.1;
-    final valleyWidth = indicatorSize + 20; // Keeps the valley wide
-    final depth = 0.3; // Keeps the curve deep
+    // const s = 0.1;
+    final valleyWidth = indicatorSize + 12;
+    final depth = 0.18;
 
     final path = Path()
       // top Left Corner
@@ -44,7 +44,8 @@ class CurvedNavPainter extends CustomPainter {
       ..quadraticBezierTo(0, 0, borderRadius, 0)
       ..lineTo(loc * width - valleyWidth * 2, 0)
       ..cubicTo(
-        loc * width - valleyWidth, // Move the curve start point closer to the center
+        loc * width -
+            valleyWidth, // Move the curve start point closer to the center
         0,
         loc * width - valleyWidth * 0.8,
         size.height * depth, // Lower the curve to create a deeper valley
@@ -56,7 +57,8 @@ class CurvedNavPainter extends CustomPainter {
         size.height * depth,
         loc * width + valleyWidth,
         0,
-        loc * width + valleyWidth * 2, // Move the curve end point closer to the center
+        loc * width +
+            valleyWidth * 2, // Move the curve end point closer to the center
         0,
       )
 
@@ -73,7 +75,6 @@ class CurvedNavPainter extends CustomPainter {
       ..quadraticBezierTo(0, height, 0, height - borderRadius)
       ..close();
 
-    // Draw the background path
     canvas.drawPath(path, paint);
 
     // Adjust the circle position slightly upwards
@@ -82,21 +83,6 @@ class CurvedNavPainter extends CustomPainter {
     // Draw the circle indicator
     canvas.drawCircle(
         Offset(loc * width, circleYPosition), indicatorSize, circlePaint);
-
-    // Create a transparent overlap effect at the first and last item
-    final transparentPath = Path()
-      ..moveTo(0, 0)
-      ..lineTo(width, 0)
-      ..lineTo(width, height)
-      ..lineTo(0, height)
-      ..close();
-
-    final transparentPaint = Paint()
-      ..color = Colors.transparent
-      ..blendMode = BlendMode.clear;
-
-    // Subtract the overlap areas from the path to create transparency
-    canvas.drawPath(transparentPath, transparentPaint);
   }
 
   @override
