@@ -34,9 +34,9 @@ class CurvedNavPainter extends CustomPainter {
     final height = size.height;
     final width = size.width;
 
-    const s = 0.06;
-    const depth = 0.20;
-    final valleyWidth = indicatorSize + 5;
+    const s = 0.1;
+    final valleyWidth = indicatorSize + 20; // Increased to make the valley wider
+    final depth = 0.3; // Increased to deepen the curve
 
     final path = Path()
       // top Left Corner
@@ -44,19 +44,19 @@ class CurvedNavPainter extends CustomPainter {
       ..quadraticBezierTo(0, 0, borderRadius, 0)
       ..lineTo(loc * width - valleyWidth * 2, 0)
       ..cubicTo(
-        (loc + s * 0.25) * size.width - valleyWidth,
-        size.height * 0.10,  // Adjusted for more curve
-        loc * size.width - valleyWidth,
-        size.height * depth,
-        (loc + s * 0.5) * size.width - valleyWidth,
-        size.height * depth,
+        loc * width - valleyWidth, // Move the curve start point closer to the center
+        0,
+        loc * width - valleyWidth * 0.8,
+        size.height * depth, // Lower the curve to create a deeper valley
+        loc * width,
+        size.height * depth, // Lower the curve to create a deeper valley
       )
       ..cubicTo(
-        (loc + s * 0.25) * size.width + valleyWidth,
+        loc * width + valleyWidth * 0.8,
         size.height * depth,
-        loc * size.width + valleyWidth,
-        size.height * 0.10,  // Adjusted for more curve
-        (loc + s * 0.75) * size.width + valleyWidth,
+        loc * width + valleyWidth,
+        0,
+        loc * width + valleyWidth * 2, // Move the curve end point closer to the center
         0,
       )
 
@@ -75,8 +75,9 @@ class CurvedNavPainter extends CustomPainter {
 
     canvas.drawPath(path, paint);
 
+    // Draw the circle indicator
     canvas.drawCircle(
-        Offset(loc * width, indicatorSize), indicatorSize, circlePaint);
+        Offset(loc * width, size.height * depth), indicatorSize, circlePaint);
   }
 
   @override
