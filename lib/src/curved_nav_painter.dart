@@ -34,7 +34,7 @@ class CurvedNavPainter extends CustomPainter {
     final height = size.height;
     final width = size.width;
 
-    const s = 0.07;
+    const s = 0.1;
     const depth = 0.16;
     final valleyWith = indicatorSize + 5;
 
