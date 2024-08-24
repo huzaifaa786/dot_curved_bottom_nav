@@ -78,7 +78,8 @@ class CurvedNavPainter extends CustomPainter {
     canvas.drawPath(path, paint);
 
     // Adjust the circle position slightly upwards
-    final circleYPosition = size.height * depth - indicatorSize / 2;
+    // final circleYPosition = size.height * depth - indicatorSize / 2;
+    final circleYPosition = size.height * depth - indicatorSize;
 
     // Draw the circle indicator
     canvas.drawCircle(
