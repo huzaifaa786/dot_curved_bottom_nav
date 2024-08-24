@@ -36,27 +36,27 @@ class CurvedNavPainter extends CustomPainter {
 
     const s = 0.1;
     const depth = 0.16;
-    final valleyWith = indicatorSize + 5;
+    final valleyWidth = indicatorSize + 5;
 
     final path = Path()
       // top Left Corner
       ..moveTo(0, borderRadius)
       ..quadraticBezierTo(0, 0, borderRadius, 0)
-      ..lineTo(loc * width - valleyWith * 2, 0)
+      ..lineTo(loc * width - valleyWidth * 2, 0)
       ..cubicTo(
-        (loc + s * 0.20) * size.width - valleyWith,
-        size.height * 0.05,
-        loc * size.width - valleyWith,
+        (loc + s * 0.25) * size.width - valleyWidth,
+        size.height * 0.15,  // Adjusted for more curve
+        loc * size.width - valleyWidth,
         size.height * depth,
-        (loc + s * 0.50) * size.width - valleyWith,
+        (loc + s * 0.5) * size.width - valleyWidth,
         size.height * depth,
       )
       ..cubicTo(
-        (loc + s * 0.20) * size.width + valleyWith,
+        (loc + s * 0.25) * size.width + valleyWidth,
         size.height * depth,
-        loc * size.width + valleyWith,
-        0,
-        (loc + s * 0.60) * size.width + valleyWith,
+        loc * size.width + valleyWidth,
+        size.height * 0.15,  // Adjusted for more curve
+        (loc + s * 0.75) * size.width + valleyWidth,
         0,
       )
 
