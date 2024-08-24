@@ -35,7 +35,7 @@ class CurvedNavPainter extends CustomPainter {
     final width = size.width;
 
     const s = 0.06;
-    const depth = 0.24;
+    const depth = 0.20;
     final valleyWidth = indicatorSize + 5;
 
     final path = Path()
@@ -45,7 +45,7 @@ class CurvedNavPainter extends CustomPainter {
       ..lineTo(loc * width - valleyWidth * 2, 0)
       ..cubicTo(
         (loc + s * 0.25) * size.width - valleyWidth,
-        size.height * 0.14,  // Adjusted for more curve
+        size.height * 0.10,  // Adjusted for more curve
         loc * size.width - valleyWidth,
         size.height * depth,
         (loc + s * 0.5) * size.width - valleyWidth,
@@ -55,7 +55,7 @@ class CurvedNavPainter extends CustomPainter {
         (loc + s * 0.25) * size.width + valleyWidth,
         size.height * depth,
         loc * size.width + valleyWidth,
-        size.height * 0.15,  // Adjusted for more curve
+        size.height * 0.10,  // Adjusted for more curve
         (loc + s * 0.75) * size.width + valleyWidth,
         0,
       )
