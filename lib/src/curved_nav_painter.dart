@@ -5,7 +5,6 @@ class CurvedNavPainter extends CustomPainter {
   late double loc;
   TextDirection textDirection;
   final double indicatorSize;
-
   final Color indicatorColor;
   double borderRadius;
 
@@ -37,8 +36,9 @@ class CurvedNavPainter extends CustomPainter {
     final valleyWidth = indicatorSize + 12;
     final depth = 0.18;
 
+    // Path for the whole navigation bar
     final path = Path()
-      // top Left Corner
+      // top left corner
       ..moveTo(0, borderRadius)
       ..quadraticBezierTo(0, 0, borderRadius, 0)
       ..lineTo(
@@ -48,7 +48,9 @@ class CurvedNavPainter extends CustomPainter {
       ..cubicTo(
         loc * width - valleyWidth < 0 ? 0 : loc * width - valleyWidth,
         0,
-        loc * width - valleyWidth * 0.8 < 0 ? 0 : loc * width - valleyWidth * 0.8,
+        loc * width - valleyWidth * 0.8 < 0
+            ? 0
+            : loc * width - valleyWidth * 0.8,
         size.height * depth, // Lower the curve to create a deeper valley
         loc * width,
         size.height * depth, // Lower the curve to create a deeper valley
@@ -65,21 +67,41 @@ class CurvedNavPainter extends CustomPainter {
             : loc * width + valleyWidth * 2,
         0,
       )
-
       // top right corner
       ..lineTo(size.width - borderRadius, 0)
       ..quadraticBezierTo(width, 0, width, borderRadius)
-
       // bottom right corner
       ..lineTo(width, height - borderRadius)
       ..quadraticBezierTo(width, height, width - borderRadius, height)
-
       // bottom left corner
       ..lineTo(borderRadius, height)
       ..quadraticBezierTo(0, height, 0, height - borderRadius)
       ..close();
 
+    // Path for the valley under the indicator (transparent area)
+    final valleyPath = Path()
+      ..moveTo(loc * width - valleyWidth, 0)
+      ..cubicTo(
+        loc * width - valleyWidth * 0.8 < 0
+            ? 0
+            : loc * width - valleyWidth * 0.8,
+        size.height * depth, // Lower the curve to create a deeper valley
+        loc * width,
+        size.height * depth, // Lower the curve to create a deeper valley
+        loc * width + valleyWidth > width ? width : loc * width + valleyWidth,
+        0,
+      )
+      ..lineTo(loc * width + valleyWidth, size.height)
+      ..lineTo(loc * width - valleyWidth, size.height)
+      ..close();
+
+    // Draw the entire navigation bar path
     canvas.drawPath(path, paint);
+
+    // Clip the valley area and clear it for transparency
+    canvas.saveLayer(Rect.fromLTWH(0, 0, width, height), Paint());
+    canvas.drawPath(valleyPath, Paint()..blendMode = BlendMode.clear);
+    canvas.restore();
 
     // Adjust the circle position slightly upwards
     final circleYPosition = size.height * depth - indicatorSize * 2;
