@@ -5,7 +5,6 @@ class CurvedNavPainter extends CustomPainter {
   late double loc;
   TextDirection textDirection;
   final double indicatorSize;
-
   final Color indicatorColor;
   double borderRadius;
 
@@ -37,8 +36,9 @@ class CurvedNavPainter extends CustomPainter {
     final valleyWidth = indicatorSize + 12;
     final depth = 0.18;
 
+    // Path for the whole navigation bar
     final path = Path()
-      // top Left Corner
+      // top left corner
       ..moveTo(0, borderRadius)
       ..quadraticBezierTo(0, 0, borderRadius, 0)
       ..lineTo(
@@ -67,20 +67,18 @@ class CurvedNavPainter extends CustomPainter {
             : loc * width + valleyWidth * 2,
         0,
       )
-
       // top right corner
       ..lineTo(size.width - borderRadius, 0)
       ..quadraticBezierTo(width, 0, width, borderRadius)
-
       // bottom right corner
       ..lineTo(width, height - borderRadius)
       ..quadraticBezierTo(width, height, width - borderRadius, height)
-
       // bottom left corner
       ..lineTo(borderRadius, height)
       ..quadraticBezierTo(0, height, 0, height - borderRadius)
       ..close();
 
+    // Draw the entire navigation bar path
     canvas.drawPath(path, paint);
 
     // Adjust the circle position slightly upwards
