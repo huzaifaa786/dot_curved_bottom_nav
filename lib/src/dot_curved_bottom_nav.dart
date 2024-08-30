@@ -138,6 +138,7 @@ class _DotCurvedBottomNavState extends State<DotCurvedBottomNav>
               (widget.height + widget.margin.bottom) * _sliderController.value),
           child: Container(
             height: widget.height,
+            color: Colors.transparent,
             margin: widget.margin,
             child: Stack(
               children: [
